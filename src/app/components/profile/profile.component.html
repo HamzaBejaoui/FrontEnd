@@ -1,0 +1,52 @@
+<h2 class="page-header">Profile Page</h2>
+<div class="col-md-7 left">
+  <img src="../../../assets/uploads/images/1511788345076-mini.jpg" class="img-circle " width="304" height="236">
+  <br>
+  <br>
+  <div>
+    <h3>Item Followed : </h3>
+    <br>
+    <ul>
+      <li *ngFor="let t of titles">
+        <a style="cursor: pointer" routerLink="/rank-item/{{t.id}}">{{t.title}}</a>
+      </li>
+    </ul>
+    <br>
+  </div>
+
+  <div>
+    <h3>My Items</h3>
+    <ul>
+      <li *ngFor="let item of itemsCreated">
+        <a style="cursor: pointer" routerLink="/rank-item/{{item.id}}">{{item.title}}</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="col md-7">
+  <ul class="list-group right">
+    <br>
+    <br>
+    <li class="list-group-item center">
+      <strong class="lead ">Username:</strong>
+      <span class="lead">&nbsp;&nbsp;{{ username }}</span>
+    </li>
+    <li class="list-group-item center">
+      <strong class="lead ">Email :</strong>
+      <span class="lead">&nbsp;&nbsp;{{ email }}</span>
+    </li>
+    <li class="list-group-item center" *ngFor="let comment of comments">
+      <strong class="lead" style="color:brown">Comment : </strong>
+      <strong class="lead">{{comment.comment}}</strong>&nbsp;&nbsp;
+      <strong class="lead" style="color:brown">on item</strong>&nbsp;&nbsp;
+      <a routerLink="/rank-item/{{ comment.itm }}"><strong class="lead">{{ ItmTitles[comment.itm] }}</strong>&nbsp;&nbsp;</a>
+    </li>
+
+
+  </ul>
+</div>
+
+<div>
+
+</div>

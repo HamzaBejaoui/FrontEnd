@@ -1,0 +1,111 @@
+<div class="container" >
+<div class="wrapper animation">
+
+  <!-- Fixed Button Add -->
+  <div class="fixed-action-btn">
+    <a class="btn-floating btn-large waves-effect waves-light red" (click)="openModal()">
+      <i class="material-icons">add</i>
+    </a>
+  </div>
+  <!-- End Fixed Button Add -->
+
+
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal " materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
+    <div class="modal-content">
+      <h4>Add new Item</h4>
+      <div class="row">
+        <div class="col s12">
+
+          <form [formGroup]="form" (ngSubmit)="onItemSubmit()" enctype="multipart/form-data" >
+            <div class="form-group">
+              <label for="title">
+                <h4>Title</h4>
+              </label>
+              <input type="text" id="title" class="form-control" formControlName="title">
+            </div>
+            <div class="form-group">
+              <label for="category">
+                <h4>Catgory</h4>
+              </label>
+              <input type="text" id="category" class="form-control" formControlName="category">
+            </div>
+            <div class="form-group">
+              <label for="description">
+                <h4>description</h4>
+              </label>
+              <textarea id="description" class="form-control" formControlName="description" cols="30" rows="10"></textarea>
+            </div>
+
+            <i class="material-icons prefix">collections</i>
+
+            <div class="file-field input-field">
+              <div class="btn-large indigo">
+                <span>File</span>
+                <input type="file" (change)="changeListner($event)" id="image" name="image" accept=".jpg,.jpeg,.png">
+              </div>
+
+
+
+              <div class="file-path-wrapper">
+                <input class="file-path validate col s6 offset-s1" type="text">
+              </div>
+
+            </div>
+            <div class="form-group">
+              <img class="image" src='{{image}}' />
+            </div>
+
+            <button class="btn waves-effect waves-light indigo " type="submit" [disabled]="!form.valid">Add
+              <i class="material-icons right">check</i>
+            </button>
+            <button class="btn waves-effect waves-light indigo pull-right" (click)="closeModal()"><i class="material-icons">close</i>Close</button>          
+            
+          </form>
+        </div>
+      </div>
+    </div> 
+  </div>
+  <!-- End Modal -->
+
+
+  
+  <div class="row" >
+    <h2>Ranks</h2> <br>
+
+    <div class="search-container hidden" >
+    <h4>Filter Item By Title</h4>
+     <input type="search" [(ngModel)]="term" placeholder="Search for item"> <!--whatever i tape in this input it will be store on term that's [(ngModel)] job -->
+    </div>
+    
+    
+    <div class="col-md-4" *ngFor=" let item of itemPosts| rankFilter: term ; let i = index">
+      
+      <div class="card sticky-action " style="padding-top:20px">
+        <div class="card-image activator">
+          <div  [chart]="tab_chart[i]" style="color:blue;min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+        </div>
+        <div class="card-content hidden">
+          <span class="indigo-text">
+            <strong>{{ item.title }}</strong>
+          </span>
+        </div>
+        <div class="card-action">
+          <a [routerLink]="['/rank-item/', item._id]">
+            <button class="btn waves-effect waves-light red center-block">Display</button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+
+
+
+
+
+
+

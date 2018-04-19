@@ -1,0 +1,72 @@
+<div class="container">
+  <div class="row show-hide-message">
+    <div [ngClass]="messageClass">
+      {{ message }}
+    </div>
+  </div>
+  <div class="row z-depth-1 " style="border-radius:5px;box-shadow:0 2px 12px 0 #dfe3eb;background-color:#fff;padding-bottom:50px">
+    <div class="col-md-5 col-centered" >
+      <h2 class="title" style="text-align:center;">Sign In</h2>
+      <h6 class="form-text sub-title" style="text-align:center;color:#a4abb3">Hello! Sign in with your username or email</h6>
+      <form [formGroup]="form" class="col s12" (submit)="onLoginSubmit()" style="margin-bottom:20px">
+
+        <div class="form-group">
+            <div class="input-field">
+                <input class="form-control" type="text" name="username" formControlName="username" >
+                <label for="username" for="username" >Last Name</label>
+            </div>
+            <div [ngClass]="{'has-error' : form.controls.username.errors && form.controls.username.dirty, 'has-success' : form.controls.username.valid && form.controls.username.dirty}">
+              <ul class="help-block">
+                <li style="color:red" *ngIf="form.controls.username.errors?.required && form.controls.username.dirty">This field is required.</li>
+              </ul>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="input-field">
+                <input class="form-control" type="password" name="password" formControlName="password">
+                <label for="password" for="password">Password</label>
+            </div>
+            <div [ngClass]="{'has-error' : form.controls.password.errors && form.controls.password.dirty, 'has-success' : form.controls.password.valid && form.controls.password.dirty}">
+              <ul class="help-block">
+                <li style="color:red" *ngIf="form.controls.password.errors?.required && form.controls.password.dirty">This field is required.</li>
+              </ul>
+            </div>
+        </div>
+        <p style="float:left">
+            <input type="checkbox" class="filled-in" id="filled-in-box"  />
+            <label for="filled-in-box" style="font-size:15px; margin-top: 25px">Remember me</label>
+        </p>
+        <p style="float:right">
+            <label for="filled-in-box" style="font-size:15px; margin-top: 25px"><a>Forgot Password?</a></label>
+        </p>
+        <input style=" margin-top: 50px" [disabled]="!form.valid || processing" class="col-md-12 waves-effect waves-light btn" type="submit" value="Login">
+      </form>
+
+      <div class="links" style="text-align:center;margin-top:20px">
+          <small class="form-text">Or connect with:</small>
+
+          <div class="socials" style="font-size:40px;margin:20px">
+            <a class="socicon-github" href="https://github.com/akveo" target="_blank"><i class="fa fa-google-plus"></i></a>
+            <a class="socicon-facebook" style="margin:50px" href="https://www.facebook.com/akveo/" target="_blank"><i class="fa fa-facebook"></i></a>
+            <a class="socicon-twitter" href="https://twitter.com/akveo_inc" target="_blank"><i class="fa fa-twitter"></i></a>
+          </div>
+
+          <small class="form-text">
+            Don't have an account? <a routerlink="../register" href="#/auth/register"><strong>Sign Up</strong></a>
+          </small>
+      </div>
+    </div>
+  </div>
+  <style>
+  input[type=text]:not(.browser-default){
+    font-size:20px;
+    margin-top: 40px
+  }
+  .input-field label{
+    font-size:15px;
+  }
+
+
+  </style>
+</div>

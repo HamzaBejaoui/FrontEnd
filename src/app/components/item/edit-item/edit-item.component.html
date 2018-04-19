@@ -1,0 +1,44 @@
+<h1 class="page-header">Edit Item</h1>
+
+<div class="row show-hide-message" *ngIf="message">
+
+  <div [ngClass]="messageClass"> 
+    {{ message }}
+
+  </div>
+
+</div>
+
+<form (submit)="updateItemSubmit()" *ngIf="!loading">
+  <div class="form-group">
+    <label for="Title">Title</label>
+    <input [disabled]="processing" type="text" name="title" placeholder="*Item Title" class="form-control" [(ngModel)]="item.title"/>
+  </div>
+
+  <div class="form-group">
+      <label for="category">Category</label>
+      <input [disabled]="processing" type="text" name="category" placeholder="*Item category" class="form-control" [(ngModel)]="item.category"/>
+    </div>
+
+  <div class="form-group">
+      <label for="evaluation">Evaluation</label>
+      <input [disabled]="processing" type="text" name="evaluation" placeholder="*Item evaluation" class="form-control" [(ngModel)]="item.evaluation"/>
+    </div>
+
+
+  <div class="form-group">
+      <label for="price">price</label>
+      <input [disabled]="processing" type="text" name="price" placeholder="*Item price" class="form-control" [(ngModel)]="item.price"/>
+    </div>
+
+
+  <div class="form-group">
+      <label for="description">description</label>
+      <textarea [disabled]="processing" name="description" id="" cols="30" rows="10" [(ngModel)]="item.description" class="form-control" placeholder="* item description"></textarea>
+      <a [routerLink]="['/delete-item/',item._id]"><button [disabled]="processing" type="button" name="button" class="btn btn-danger" >Delete</button></a>
+      <button [disabled]="processing" type="button" name="button" class="btn btn-success" (click)="goBack()">Go Back</button>
+      <button [disabled]="processing" type="submit" name="save" class="btn btn-info">Save Changes</button>
+    </div>
+
+
+</form>

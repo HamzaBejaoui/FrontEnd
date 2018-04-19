@@ -1,0 +1,260 @@
+<br>
+<br>
+<br>
+
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-7">
+      <div class="panel" style="padding:20px">
+        <button class="btn waves-effect waves-light red right" [disabled]="evalButton" (click)="open(eval)">Evaluate</button>
+        <button class="btn waves-effect waves-light red right" [disabled]="updateEvalButton" (click)="open(update)">Update Eval</button>
+        <div class="panel-heading">
+          <h3 class="panel-title" style="text-align:center;font-weight:bold;margin-top:50px">
+            {{ item?.title }}
+          </h3>
+
+          <div class="panel-body">
+
+
+
+            <div [chart]="chart" style="color:blue;min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+            <br>
+            <br>
+            <br>
+            <p>{{ item?.description }}</p>
+
+          </div>
+
+          <div class="panel-footer">
+            <strong style="color:indigo"> Category:</strong>
+            <span style="color:blueviolet"> {{ item?.category }}</span>
+
+
+            <div style="color:blueviolet;float:right;margin-right:10px">{{ item?.createdAt | date:'MMM dd, yyyy, HH:mm' }} </div>
+            <strong style="color:indigo;float:right">CreatedAt: </strong>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id='follow' class="col-m-7 center">
+      <img src="../../../assets/uploads/images/{{item.image}}" class="img-circle" width="200" height="200">
+      <br>
+      <br>
+      <br>
+      <p>
+        <strong>Number of Followers :</strong>
+        <b>&nbsp;&nbsp;{{totalFollowers}}</b>
+      </p>
+      <br>
+      <button class="col-4 btn btn-follow blue" name="button1" [disabled]="!followButton" (click)="follow()">FOLLOW</button>
+      <br>
+      <br>
+      <button class="col-5 btn btn-unfollow blue" name="button1" [disabled]="!unfollowButton" (click)="unfollow()">UNFOLLOW</button>
+      <br>
+      <br>
+      <br>
+      <br>
+      <p>
+        <strong>Number of comments :</strong>&nbsp;&nbsp;{{nbrComment}}</p>
+
+    </div>
+
+  </div>
+
+
+  <!-- <div *ngFor="let e of eval">
+  <img src="../../../assets/uploads/imagesEval/{{e.image}}"> 
+</div> -->
+
+
+
+  <!-- begin modal 2 -->
+  <ng-template #update let-c="close" let-d="dismiss">
+    <div class="modal-content">
+      <h4>Update Evaluation</h4>
+      <input type="text">
+      <div class="row">
+        <form [formGroup]="evalForm2" enctype="multipart/form-data">
+          <div class="col s8">
+            <div class="form-group">
+              <label for="price">
+                <h5>
+                  <strong>Pirce :</strong>
+                </h5>
+              </label>
+              <input type="text" id="price" class="form-control" formControlName="price" />
+              <label for="service">
+                <h5>
+                  <strong>Service :</strong>
+                </h5>
+              </label>
+              <input type="text" id="service" class="form-control" formControlName="service">
+              <label for="quality">
+                <h5>
+                  <strong>Quality :</strong>
+                </h5>
+              </label>
+              <input type="text" id="quality" class="form-control" formControlName="quality">
+
+              <!-- <label for="comment"> <h5><strong>Comment :</strong></h5></label>
+                <textarea id="textarea1" class="materialize-textarea" formControlName="comment" data-length="200" ></textarea>
+    
+                <div class="file-field input-field">
+                  <div class="btn-large indigo">
+                    <span>File</span>
+                    <input type="file" (change)="changeListner($event)" id="image" name="image" accept=".jpg,.jpeg,.png">
+                  </div>
+                  <div class="file-path-wrapper">
+                    <input class="file-path validate col s6 offset-s1" type="text">
+                  </div>
+                </div> -->
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" name="button" class="modal-action modal-close btn waves-effect waves-light red" (click)="updatEval(item._id);postComment(item._id)">Submit</button>
+            <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </ng-template>
+
+  <!-- end modal2 -->
+
+
+
+
+  <!-- begin modal -->
+  <ng-template #eval let-c="close" let-d="dismiss">
+    <div class="modal-content">
+      <h4>Evaluation</h4>
+      <div class="row">
+        <form [formGroup]="evalForm" enctype="multipart/form-data">
+          <div class="col s8">
+
+            <div class="form-group">
+              <label for="price">
+                <h5>
+                  <strong>Pirce :</strong>
+                </h5>
+              </label>
+              <input type="text" id="price" class="form-control" formControlName="price">
+              <label for="service">
+                <h5>
+                  <strong>Service :</strong>
+                </h5>
+              </label>
+              <input type="text" id="service" class="form-control" formControlName="service">
+              <label for="quality">
+                <h5>
+                  <strong>Quality :</strong>
+                </h5>
+              </label>
+              <input type="text" id="quality" class="form-control" formControlName="quality">
+
+              <label for="comment">
+                <h5>
+                  <strong>Comment :</strong>
+                </h5>
+              </label>
+              <textarea id="textarea1" class="materialize-textarea" formControlName="comment" data-length="200"></textarea>
+
+              <div class="file-field input-field">
+                <div class="btn-large indigo">
+                  <span>File</span>
+                  <input type="file" (change)="changeListner($event)" id="image" name="image" accept=".jpg,.jpeg,.png">
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path validate col s6 offset-s1" type="text">
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" name="button" class="modal-action modal-close btn waves-effect waves-light red" (click)="onEvalSubmit(item._id);">Submit</button>
+            <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </ng-template>
+  <!-- end modal -->
+  <br>
+  <br>
+  <br>
+
+  <div class="row">
+    <div class="col m4">
+      <span class="btn waves-effect waves-light " style="color:rgb(255, 255, 255)">
+        <strong>Comments</strong>
+      </span>
+      <br>
+      <br>
+      <ul class="list-group">
+        <!-- <li class="list-group-item">
+        
+            <div>
+              <form [formGroup]="commentForm">
+                <textarea style="color:blueviolet" name="comment" cols="70" rows="3" formControlName="comment"></textarea>
+                <button type="submit" name="button" class="btn btn-sm btn-info" (click)="postComment(item._id)">Commenter </button>
+                <button type="button" name="button" class="btn btn-sm btn-danger" (click)="cancelSubmission(item._id)">Cancel </button>
+              </form>
+            </div>
+        
+          </li> -->
+        <div>
+          <form [formGroup]="commentForm">
+            <textarea name="comment" id="" cols="30" rows="10" formControlName="comment"></textarea>
+            <button type="submit" class="btn btn-sm btn-info" (click)="postComment2(item._id)">Comment</button>
+          </form>
+          <li *ngFor="let comment of allComments" class="list-group-item" style="background-color:antiquewhite">
+            {{ comment.color }}
+            <span [style.background-color]="comment.color">{{ comment.commentator }} :</span>
+            <span style="color:rgb(223, 12, 65)">{{ comment.comment }}</span>
+            <span class="pull-right">{{comment.commentedAt | date:'MMM dd, yyyy, HH:mm a'}}</span>
+          </li>
+        </div>
+      </ul>
+
+    </div>
+    <div class="col m4">
+      <span class="btn waves-effect waves-light " style="color:rgb(255, 255, 255)">
+        <strong>chart Bar</strong>
+      </span>
+      <br>
+      <br>
+      <div [chart]="chartBarService" style="color:blue;min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+      <br>
+      <br>
+      <div [chart]="chartBarQuality" style="color:blue;min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+      <br>
+      <br>
+      <div [chart]="chartBarPrice" style="color:blue;min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+    </div>
+    <div class="col m4">
+      <span class="btn waves-effect waves-light " style="color:rgb(255, 255, 255)">
+        <strong>Picture</strong>
+      </span>
+      <br>
+      <br>
+      <ul class="list-group">
+        <li>
+          <div class="row">
+            <div class="col md-3" *ngFor="let e of evals">
+              <div class="card  sticky-action">
+                <div class="card-image activator">
+                  <img src="../../../assets/uploads/imagesEval/{{e.image}}">
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
+</div>
